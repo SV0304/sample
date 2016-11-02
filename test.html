@@ -6,13 +6,21 @@
       $("#mtn").on({
         focus: function(evt){
           var $element = $(evt.currentTarget);
-          $element.val("");
-          $element.attr("type","number");
+          if($element.attr("data-onfocus")!=="true"){
+            $element.val("");
+            $element.attr("type","number");
+            $element.attr("data-onfocus","true");
+            var elemId = $element.attr("id");
+            setTimeout(function(){
+              $("#"+elemId).trigger("click");
+          },20);
+          }
         },
         blur: function(evt){
           var $element = $(evt.currentTarget);
+          $element.attr("data-onfocus","false");
           $element.attr("type","text");
-          var mtn = $element.val().replace(/\d{3}\d{3}\d{4}/g,"$1-$2-$3");
+          var mtn = $element.val().replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
           $element.val(mtn);
         }
       });
