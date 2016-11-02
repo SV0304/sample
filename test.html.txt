@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <script type="text/javascript">
+    $("#mtn").on({
+      focus: function(evt){
+        var $element = $(evt.currentTarget);
+        $element.val("");
+        $element.attr("type","number");
+      },
+      blur: function(evt){
+        var $element = $(evt.currentTarget);
+        $element.attr("type","text");
+        var mtn = $element.val().replace(\d{3}\d{3}\d{4}/g,"$1-$2-$3");
+        $element.val(mtn);
+      }
+    });
+  </script>
+  <body>
+    Enter your mobile number here:
+    <input type="text" id="mtn" value="" />
+  </body>
+</html>
